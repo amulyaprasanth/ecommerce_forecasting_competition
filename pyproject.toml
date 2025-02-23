@@ -1,0 +1,29 @@
+[project]
+name = "ecommerce-forecasting-competition"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "amulyaprasanth",email = "amulyaprasanth301@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy (<2)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "seaborn (>=0.13.2,<0.14.0)",
+    "scikit-learn (>=1.6.1,<2.0.0)",
+    "sweetviz (>=2.3.1,<3.0.0)",
+    "torch (>=2.6.0,<3.0.0)",
+    "torchinfo (>=1.8.0,<2.0.0)",
+    "statsmodels (>=0.14.4,<0.15.0)"
+]
+
+[tool.poetry]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+jupyter = "^1.1.1"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
