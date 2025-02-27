@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import logging
+import pickle
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -21,6 +22,9 @@ def prepare_data(data: pd.DataFrame, split_size: float = 0.8):
     tuple: Split data (X_train, X_val, y_train, y_val)
     """
     logger.info("Preparing data by splitting into training and validation sets.")
+
+    # Drop the missing values as the missing values in the 'Sales_Quantity' column
+    data = data.dropna()
     
     # Split the data into features and labels
     X = data.drop("Sales_Quantity", axis=1)
@@ -69,6 +73,20 @@ def create_preprocessor():
     logger.info("Preprocessor creation complete.")
     return preprocessor
 
+# save preprocessor
+def save_preprocessor(preprocessor: ColumnTransformer, filename: str):
+    """
+    Saves the preprocessor to a file.
+
+    Parameters:
+    preprocessor (ColumnTransformer): The preprocessor object.
+    filename (str): The name of the file to save the preprocessor.
+    """
+    logger.info(f"Saving preprocessor to {filename}.")
+    
+    with open(filename, 'wb') as file:
+        pickle.dump(preprocessor, file)
+
 def transform_data(X_train, X_val, preprocessor: ColumnTransformer):
     """
     Transforms the training and validation data using the preprocessor.
@@ -88,4 +106,5 @@ def transform_data(X_train, X_val, preprocessor: ColumnTransformer):
     X_val_transformed = np.array(preprocessor.transform(X_val))
 
     logger.info("Data transformation complete.")
+
     return X_train_transformed, X_val_transformed

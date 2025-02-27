@@ -3,11 +3,11 @@ import numpy as np
 import pandas as pd
 import logging
 from src.utils.data_ingestion import load_data, download_dataset, extract_dataset
-from src.utils.data_preprocessing import prepare_data, create_preprocessor, transform_data
+from src.utils.data_preprocessing import prepare_data, create_preprocessor, transform_data, save_preprocessor
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("feature_pipeline")
 
 def main(data_dir="data", train_file="data/Dataset/train.csv"):
     try:
@@ -37,6 +37,10 @@ def main(data_dir="data", train_file="data/Dataset/train.csv"):
         # Transform the training and validation data
         logger.info("Transforming training and validation data.")
         X_train_transformed, X_val_transformed = transform_data(X_train, X_val, preprocessor)
+
+        # Save preprocessor
+        logger.info("Saving preprocessor.")
+        save_preprocessor(preprocessor, "assets/preprocessor.pkl")
 
         logger.info("Feature pipeline execution complete.")
         return X_train_transformed, X_val_transformed, y_train, y_val

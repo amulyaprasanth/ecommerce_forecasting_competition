@@ -47,7 +47,7 @@ def extract_dataset(filepath: str = data_filepath):
         logging.info("Extracting dataset...")
         with ZipFile(filepath, 'r') as zip_ref:
             zip_ref.extractall("data")
-        shutil.rmtree("data/__MACOSX__")
+        shutil.rmtree("data/__MACOSX")
         os.remove(filepath)
         logging.info("Dataset extracted successfully.")
 
